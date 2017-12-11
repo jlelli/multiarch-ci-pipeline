@@ -14,4 +14,4 @@ resource_groups:
       - tag: hostname
         op: "="
         value: "ibm-p8-storage-03.khw.lab.eng.bos.redhat.com"
-      ks_meta: partitions="/mnt/block4ext4:part:2000:ext4dev"
+      ks_meta: "partitions=/mnt/block4ext4:part:2000:ext4dev"
