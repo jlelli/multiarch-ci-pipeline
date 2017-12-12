@@ -7,12 +7,7 @@ properties([
     parameters([
         string(
           name: 'BUILD_NUMBER',
-          description: 'Build number of the provision-mutliarch-slave job.',
-        ),
-
-        string(
-          name: 'PROV_JOB_NAME',
-          description: 'Provisioner job name (e.g., provision-mutliarch-slave).',
+          description: 'Build number of the provision-multiarch-slave-dev job.',
         )
       ])
   ])
@@ -35,13 +30,13 @@ node ('provisioner') {
         try {
           // Copy artifacts from build
           step([$class: 'CopyArtifact', filter: 'inventories/*.inventory',
-              projectName         : params.PROV_JOB_NAME,
+              projectName         : 'provision-multiarch-slave-dev',
               selector            : [$class     : 'SpecificBuildSelector', buildNumber: params.BUILD_NUMBER]])
           step([$class: 'CopyArtifact', filter: 'resources/*.output',
-              projectName         : params.PROV_JOB_NAME,
+              projectName         : 'provision-multiarch-slave-dev',
               selector            : [$class     : 'SpecificBuildSelector', buildNumber: params.BUILD_NUMBER]])
           def properties = step([$class: 'CopyArtifact', filter: '*-slave.properties',
-              projectName         : params.PROV_JOB_NAME,
+              projectName         : 'provision-multiarch-slave-dev',
               selector            : [$class     : 'SpecificBuildSelector', buildNumber: params.BUILD_NUMBER]])
         } catch (e) {
           // The provisioning job did not successfully provision a machine, so there is nothing to teardown
